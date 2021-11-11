@@ -19,7 +19,7 @@ connection.connect((err) => {
   }
 });
 
-router.get("/employees", (req, resp) => {
+router.get("/", (req, resp) => {
   let perPage = req.query.perPage || PER_PAGE;
   console.log(perPage)
 
@@ -45,7 +45,7 @@ router.get("/employees", (req, resp) => {
   })
 });
 
-router.post("/employees", (req, resp) =>{
+router.post("/", (req, resp) =>{
   let params = req.body;
   connection.query(`insert into employees (first_name, last_name, gender, hire_date, birth_date) values('${params.first_name}', '${params.last_name}', '${params.gender}', '${params.hire_date}', '${params.birth_date}')`, (error, result, fields) => {
     if(error){
@@ -60,7 +60,7 @@ router.post("/employees", (req, resp) =>{
   });
 });
 
-router.get("/employees/:emp_no", (req, resp) =>{
+router.get("/:emp_no", (req, resp) =>{
   let params = req.params;
   connection.query(`select * from employees where emp_no = ${params.emp_no} limit 1`, (error, result, fields) => {
     if(error){
@@ -77,7 +77,7 @@ router.get("/employees/:emp_no", (req, resp) =>{
   });
 });
 
-router.put("/employees/:emp_no", (req, resp) =>{
+router.put("/:emp_no", (req, resp) =>{
   let params = req.body;
   connection.query(`update employees SET first_name = '${params.first_name}', last_name = '${params.last_name}', gender = '${params.gender}', hire_date = '${params.hire_date}', birth_date = '${params.birth_date}' where emp_no = ${req.params.emp_no}`, (error, result, fields) => {
     if(error){
@@ -92,7 +92,7 @@ router.put("/employees/:emp_no", (req, resp) =>{
   });
 });
 
-router.delete("/employees/:emp_no", (req, resp) =>{
+router.delete("/:emp_no", (req, resp) =>{
   let params = req.params;
   connection.query(`delete from employees where emp_no = ${params.emp_no}`, (error, result, fields) => {
     if(error){
