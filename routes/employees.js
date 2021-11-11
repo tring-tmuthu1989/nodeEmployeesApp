@@ -29,7 +29,7 @@ router.get("/employees", (req, resp) => {
   }
   let offset = (parseInt(page)-1) * parseInt(perPage);
 
-  connection.query(`select * from employees limit ${perPage} OFFSET ${offset}`, function(error, results, fields){
+  connection.query(`select * from employees limit ${perPage} OFFSET ${offset}`, function(error, result, fields){
     if(error){
       resp.status(500).json({error: error.stack});
     }else if(result.length == 0){
@@ -37,7 +37,7 @@ router.get("/employees", (req, resp) => {
     }else{
       resp.status(200).json({
         data: {
-          employees: results,
+          employees: result,
           currentPage: page
         }
       }).end();
